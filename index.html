@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illinois Cloud Scout Mastery Adventure</title>
+    <style>
+        :root { --primary: #0288d1; --bg: #f0faff; --text: #2c3e50; --perm: #d32f2f; --feedback: #fff9c4; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        #game-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 650px; border-top: 10px solid var(--primary); }
+        .standard-header { font-size: 0.85em; color: #546e7a; background: #e1f5fe; padding: 12px; border-radius: 10px; margin-bottom: 25px; text-align: center; line-height: 1.4; }
+        .visual-cue { font-size: 85px; text-align: center; margin: 20px 0; display: block; }
+        .recap-box { font-size: 0.9em; background: var(--feedback); padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 6px solid #fbc02d; font-style: italic; }
+        #story-text { font-size: 1.2em; line-height: 1.6; margin-bottom: 30px; }
+        .choice-btn { background: var(--primary); color: white; border: none; padding: 16px; margin: 8px 0; border-radius: 12px; cursor: pointer; font-size: 1.1em; width: 100%; font-weight: 600; transition: 0.2s; }
+        .choice-btn:hover { background: #01579b; transform: scale(1.02); }
+        .permanent { background: var(--perm); }
+        .permanent:hover { background: #b71c1c; }
+        footer { margin-top: 30px; font-size: 0.8em; color: #95a5a6; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div id="game-card">
+    <div class="standard-header">
+        <strong>Standards:</strong> NGSS 3-ESS2-1 (Weather Data) & IL SS.G.1.K (Human-Environment Interaction)<br>
+        <em>Goal: Master cloud identification to plan your community event!</em>
+    </div>
+
+    <span id="visual" class="visual-cue">🌤️</span>
+    <div id="recap"></div>
+    <div id="story-text">You are a Cloud Scout at an Illinois park. You see thin, white, feathery clouds very high in the sky. They look like "horse tails." What are they?</div>
+    
+    <div id="buttons">
+        <button class="choice-btn" onclick="play('cirrus')">Cirrus: Wispy Ice Crystals</button>
+        <button class="choice-btn" onclick="play('fail_cumulus')">Cumulus: Fluffy Cotton Balls</button>
+    </div>
+
+    <footer>Based on "Types of Clouds" Lesson | CYOA Assignment</footer>
+</div>
+
+<script>
+    const data = {
+        start: {
+            icon: "🌤️",
+            text: "You see thin, white, feathery clouds very high in the sky. People call them 'horse tails.' What are they?",
+            recap: "RECAP: Clouds are masses of water drops or ice crystals. They take different shapes based on their height.",
+            opts: [
+                { t: "Cirrus: Wispy Ice Crystals", n: "cirrus_path" },
+                { t: "Cumulus: Fluffy Cotton Balls", n: "fail_cumulus" }
+            ]
+        },
+        cirrus_path: {
+            icon: "🐎",
+            text: "Correct! Those are <b>Cirrus</b> clouds. They mean fair weather for now, but rain is coming soon. Later, the sky turns into a flat, gray 'blanket' covering the whole sky. What is this?",
+            recap: "RECAP: Cirrus clouds dance high where jets fly and are always white.",
+            opts: [
+                { t: "Stratus: A chilly, overcast day", n: "win" },
+                { t: "Nimbus: Dark, heavy rain clouds", n: "fail_nimbus" }
+            ]
+        },
+        fail_cumulus: {
+            icon: "☁️",
+            text: "<b>Immediate Feedback:</b> Not quite! <b>Cumulus</b> clouds are the 'cotton wool' clouds found at 4,000m-7,000m. These feathery ones are much higher!",
+            opts: [{ t: "Go back and re-read the sky", n: "start" }]
+        },
+        fail_nimbus: {
+            icon: "⛈️",
+            text: "<b>Immediate Feedback:</b> Wait! <b>Nimbus</b> clouds are dark, black, or grey and block the sunlight. These are thin and light gray. Try again!",
+            opts: [{ t: "Look at the clouds again", n: "cirrus_path" }]
+        },
+        win: {
+            icon: "🏆",
+            text: "<b>MASTERY ACHIEVED!</b> You identified the <b>Stratus</b> clouds. Because you planned ahead, the community event is a success despite the gloom.",
+            opts: [
+                { t: "PERMANENT CHOICE: Reflect on your learning", n: "reflect", p: true },
+                { t: "Restart to try a different path", n: "start" }
+            ]
+        },
+        reflect: {
+            icon: "🧠",
+            text: "<b>Metacognitive Reflection:</b> You noticed the change from Cirrus to Stratus. Did the 'immediate feedback' help you understand the difference in cloud heights? Reflection is where the real learning happens!",
+            opts: [{ t: "Final Review (Restart)", n: "start" }]
+        }
+    };
+
+    function play(state) {
+        if (state === 'start') { location.reload(); return; }
+        const s = data[state];
+        document.getElementById('visual').innerText = s.icon;
+        document.getElementById('story-text').innerHTML = s.text;
+        document.getElementById('recap').innerHTML = s.recap ? `<div class="recap-box">${s.recap}</div>` : '';
+        
+        const btnBox = document.getElementById('buttons');
+        btnBox.innerHTML = '';
+        s.opts.forEach(o => {
+            const b = document.createElement('button');
+            b.className = 'choice-btn' + (o.p ? ' permanent' : '');
+            b.innerText = o.t;
+            b.onclick = () => play(o.n);
+            btnBox.appendChild(b);
+        });
+    }
+</script>
+</body>
+</html>
