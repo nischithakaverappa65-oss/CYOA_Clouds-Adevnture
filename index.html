@@ -1,264 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Cloud Scout Adventure - CYOA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cloud Scout Mystery</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --text-size: 2.2rem;
+            --bubble-bg: rgba(255, 255, 255, 0.95);
+        }
 
-<style>
-body {
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0a1628;
-  color:#222;
-}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body, html { 
+            height: 100%; width: 100%; 
+            font-family: 'Baloo 2', cursive; 
+            overflow: hidden; 
+        }
 
-/* screens */
-.screen { display:none; }
-.active { display:block; }
+        /* Full Screen Backgrounds */
+        .scene {
+            height: 100vh; width: 100vw;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 40px;
+            text-align: center;
+        }
 
-/* cover */
-.cover {
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  color:white;
-  background:linear-gradient(#0a1628,#1a3a6e);
-  padding:40px;
-}
+        .active { display: flex; } /* Shown when active */
 
-h1 { font-size:42px; }
+        /* PAGE 1: TITLE PAGE */
+        #title-page {
+            background: linear-gradient(180deg, #0b1a3b 0%, #1a3a6e 100%);
+            color: white;
+        }
 
-/* story */
-.story {
-  max-width:900px;
-  margin:40px auto;
-  background:white;
-  padding:30px;
-  border-radius:20px;
-}
+        h1 { font-size: 5rem; text-shadow: 0 5px 15px rgba(0,0,0,0.5); margin-bottom: 10px; }
+        .subtitle { font-size: 1.5rem; color: #a8d8f0; margin-bottom: 40px; }
 
-.text {
-  font-size:20px;
-  line-height:1.8;
-}
+        /* STORY PAGES BACKGROUND */
+        .story-bg { background: linear-gradient(to bottom, #4a90d9, #a8d8f0); }
 
-/* buttons */
-button {
-  display:block;
-  width:100%;
-  margin-top:12px;
-  padding:15px;
-  font-size:18px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-}
+        /* SPEECH BUBBLE */
+        .speech-bubble {
+            background: var(--bubble-bg);
+            border-radius: 50px;
+            padding: 40px 60px;
+            width: 85%;
+            max-width: 1000px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border: 6px solid #1a3a6e;
+            font-size: var(--text-size);
+            color: #1a1a2e;
+            position: relative;
+            z-index: 10;
+        }
 
-/* dialogue */
-.dialogue {
-  margin:10px 0;
-  padding:12px;
-  border-radius:10px;
-  font-weight:bold;
-}
-.zara { background:#fff4e6; }
-.leo { background:#eef4ff; }
+        /* CHARACTER */
+        .character { font-size: 12rem; margin-top: 20px; transition: transform 0.3s; }
+        .character:hover { transform: scale(1.1) rotate(5deg); }
 
-/* canvas */
-canvas {
-  width:100%;
-  height:300px;
-}
-</style>
+        /* INTERACTIVE BUTTONS */
+        .button-group {
+            margin-top: 30px;
+            display: flex;
+            gap: 25px;
+            z-index: 20;
+        }
+
+        .btn {
+            background: #ffd54f;
+            color: #333;
+            border: none;
+            padding: 25px 50px;
+            border-radius: 60px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #fbc02d;
+            transition: all 0.1s;
+        }
+
+        .btn:hover { background: #ffca28; transform: translateY(-3px); }
+        .btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #fbc02d; }
+
+        /* FOOTER FOR STANDARD */
+        .footer {
+            position: absolute;
+            bottom: 15px;
+            font-size: 1rem;
+            opacity: 0.7;
+            width: 100%;
+            color: inherit;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- STANDARDS -->
-<div id="standards" class="cover active">
-  <h1>Cloud Scout Adventure</h1>
+    <!-- SCENE 1: COVER PAGE -->
+    <div id="scene1" class="scene active">
+        <div class="character">🔍☁️</div>
+        <h1>The Cloud Scout Mystery</h1>
+        <p class="subtitle">An Interactive Weather Adventure</p>
+        
+        <div class="button-group">
+            <button class="btn" onclick="goToScene('scene2')">START ADVENTURE</button>
+        </div>
 
-  <h2>Educational Standards (Grade 3)</h2>
+        <div class="footer">Educational Standard: 3-ESS2-1 (Grade 3 Science) - Weather Data & Seasons</div>
+    </div>
 
-  <p><b>NGSS 3-ESS2-1:</b> Represent data to describe weather conditions.</p>
-  <p><b>Science Practice:</b> Observing patterns in weather.</p>
+    <!-- SCENE 2: THE INTRODUCTION -->
+    <div id="scene2" class="scene story-bg">
+        <div class="speech-bubble">
+            "Hoot! I'm <b>Aani the Owl</b>. The wind is picking up! Look at those clouds... they look like thin, wispy horse tails high in the sky. What are they?"
+        </div>
+        
+        <div class="character">🦉</div>
 
-  <button onclick="start()">Start Adventure</button>
-</div>
+        <div class="button-group">
+            <button class="btn" onclick="goToScene('scene3-correct')">Cirrus Clouds</button>
+            <button class="btn" onclick="goToScene('scene3-wrong')">Cumulus Clouds</button>
+        </div>
+    </div>
 
-<!-- GAME -->
-<div id="game" class="screen">
+    <!-- SCENE 3: CORRECT CHOICE -->
+    <div id="scene3-correct" class="scene story-bg" style="background: #a5d6a7;">
+        <div class="speech-bubble">
+            "Correct! **Cirrus** clouds are made of ice and mean the weather is about to change. You're a natural Cloud Scout!"
+        </div>
+        <div class="character">🌟🦉</div>
+        <div class="button-group">
+            <button class="btn" onclick="goToScene('scene1')">Play Again</button>
+        </div>
+    </div>
 
-<canvas id="sky"></canvas>
+    <!-- SCENE 3: WRONG CHOICE -->
+    <div id="scene3-wrong" class="scene story-bg" style="background: #ef9a9a;">
+        <div class="speech-bubble">
+            "Not quite! **Cumulus** clouds look like fluffy cotton balls. These wispy ones are **Cirrus**. Let's try again!"
+        </div>
+        <div class="character">🧐🦉</div>
+        <div class="button-group">
+            <button class="btn" onclick="goToScene('scene2')">Try Again</button>
+        </div>
+    </div>
 
-<div class="story">
-  <div id="text" class="text"></div>
-  <div id="choices"></div>
-</div>
+    <script>
+        // FUNCTION TO CHANGE SCENES
+        function goToScene(sceneId) {
+            // Hide all scenes
+            const scenes = document.querySelectorAll('.scene');
+            scenes.forEach(scene => scene.classList.remove('active'));
 
-</div>
-
-<script>
-
-function start(){
-  document.getElementById("standards").classList.remove("active");
-  document.getElementById("game").classList.add("active");
-  scene(0);
-}
-
-/* SCENES */
-const scenes = [
-
-/* 0 START */
-{
-text:`
-The class arrives at the lake.
-
-<div class="dialogue leo">“What are those clouds?”</div>
-
-Thin white clouds stretch across the sky.
-
-What type are they?
-`,
-choices:[
-{t:"Cirrus (thin & high)", n:1},
-{t:"Cumulus (puffy)", n:2},
-{t:"Stratus (flat gray)", n:3}
-]
-},
-
-/* CORRECT PATH */
-{
-text:`
-Correct! Cirrus clouds.
-
-<div class="dialogue zara">“They mean weather might change later…”</div>
-
-Later, clouds grow bigger and darker.
-
-What should you do?
-`,
-choices:[
-{t:"Go inside now", n:4},
-{t:"Wait and observe more", n:5},
-{t:"Ignore and play", n:6}
-]
-},
-
-/* WRONG PATH 1 */
-{
-text:`Those are not cumulus.
-
-Try again — look carefully at shape.`,
-choices:[
-{t:"Try again", n:0}
-]
-},
-
-/* WRONG PATH 2 */
-{
-text:`Not stratus — the sky is still blue.
-
-Try again.`,
-choices:[
-{t:"Go back", n:0}
-]
-},
-
-/* HERO PATH */
-{
-text:`
-You go inside early.
-
-BOOM! Thunder starts.
-
-<div class="dialogue leo">“You saved us!”</div>
-
-⭐ BEST ENDING
-`,
-choices:[]
-},
-
-/* THINKING PATH */
-{
-text:`
-You observe more.
-
-Clouds grow taller and darker.
-
-Now what?
-`,
-choices:[
-{t:"Go inside now", n:4},
-{t:"Wait longer", n:6}
-]
-},
-
-/* RISKY PATH */
-{
-text:`
-You stayed outside.
-
-Suddenly—
-
-RAIN pours heavily.
-
-<div class="dialogue zara">“I should have acted sooner.”</div>
-
-🌧 Learning ending
-`,
-choices:[]
-}
-
-];
-
-/* ENGINE */
-function scene(i){
-  const s = scenes[i];
-  document.getElementById("text").innerHTML = s.text;
-
-  const c = document.getElementById("choices");
-  c.innerHTML="";
-
-  s.choices.forEach(choice=>{
-    const b=document.createElement("button");
-    b.innerText=choice.t;
-    b.onclick=()=>scene(choice.n);
-    c.appendChild(b);
-  });
-
-  drawSky(i);
-}
-
-/* SKY */
-function drawSky(i){
-  const canvas=document.getElementById("sky");
-  const ctx=canvas.getContext("2d");
-
-  canvas.width=window.innerWidth;
-  canvas.height=300;
-
-  const colors=[
-    ["#0d2755","#7ab8e8"],
-    ["#1a4a8a","#7abbea"],
-    ["#555","#aaa"],
-    ["#666","#bbb"],
-    ["#111","#333"],
-    ["#333","#777"],
-    ["#222","#444"]
-  ];
-
-  const g=ctx.createLinearGradient(0,0,0,300);
-  colors[i].forEach((c,idx)=>g.addColorStop(idx,c));
-
-  ctx.fillStyle=g;
-  ctx.fillRect(0,0,canvas.width,300);
-}
-
-</script>
+            // Show the one we want
+            document.getElementById(sceneId).classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
