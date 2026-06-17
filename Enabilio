@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enabilio — Onboarding Assessment</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif;}
+body{background:#f0f0f0;display:flex;justify-content:center;padding:20px 0;min-height:100vh;}
+#app{display:flex;justify-content:center;}
+.phone{width:300px;background:#fff;border-radius:36px;border:3px solid #222;overflow:hidden;display:flex;flex-direction:column;min-height:560px;}
+.nub{height:22px;background:#f0f0f0;width:80px;margin:10px auto 0;border-radius:0 0 12px 12px;border:2px solid #222;border-top:none;}
+.top{height:10px;background:#fff;}
+.screen{flex:1;display:flex;flex-direction:column;background:#f5f5f5;}
+.hdr{background:#fff;padding:10px 14px 8px;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;}
+.hdr-title{font-size:13px;font-weight:600;color:#111;}
+.badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;}
+.ba{background:#dbeafe;color:#1e40af;}
+.bb{background:#d1fae5;color:#065f46;}
+.bc{background:#fef3c7;color:#92400e;}
+.bd{background:#ede9fe;color:#4c1d95;}
+.bdone{background:#d1fae5;color:#065f46;}
+.prog-wrap{padding:8px 14px;background:#fff;border-bottom:1px solid #ddd;}
+.prog-track{height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden;}
+.prog-bar{height:100%;background:#10b981;border-radius:3px;transition:width .3s;}
+.prog-lbl{display:flex;justify-content:space-between;font-size:10px;color:#6b7280;margin-top:3px;}
+.body{flex:1;padding:12px 14px;display:flex;flex-direction:column;gap:8px;overflow:hidden;}
+.qtxt{font-size:14px;font-weight:600;color:#111;line-height:1.4;}
+.qsub{font-size:11px;color:#6b7280;line-height:1.4;}
+.opts{display:flex;flex-direction:column;gap:6px;}
+.opt{background:#fff;border:1.5px solid #d1d5db;border-radius:10px;padding:9px 11px;font-size:12px;color:#111;cursor:pointer;text-align:left;display:flex;align-items:center;gap:8px;line-height:1.3;transition:all .15s;}
+.opt:hover{background:#f0f9ff;border-color:#60a5fa;}
+.opt.on{background:#dbeafe;border-color:#2563eb;color:#1e3a8a;font-weight:500;}
+.opt .ic{font-size:16px;flex-shrink:0;}
+.demo-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.dcard{background:#fff;border:2px solid #d1d5db;border-radius:10px;padding:8px;cursor:pointer;transition:all .15s;}
+.dcard:hover{background:#f0fdf4;border-color:#86efac;}
+.dcard.on{background:#dbeafe;border-color:#2563eb;}
+.dcard-lbl{font-size:9px;font-weight:600;color:#6b7280;margin-bottom:4px;text-transform:uppercase;}
+.dcard-txt{font-size:10px;color:#111;line-height:1.4;}
+.step{display:flex;align-items:center;gap:4px;font-size:10px;color:#111;margin-bottom:2px;}
+.sn{width:14px;height:14px;border-radius:50%;background:#dbeafe;color:#1e40af;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hint{background:#fef3c7;border-radius:8px;padding:6px 9px;font-size:11px;color:#92400e;display:flex;align-items:center;gap:5px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+.chk{background:#fff;border:1.5px solid #d1d5db;border-radius:8px;padding:7px 8px;font-size:11px;color:#111;cursor:pointer;text-align:left;display:flex;align-items:center;gap:5px;transition:all .15s;}
+.chk:hover{background:#f0fdf4;}
+.chk.on{background:#d1fae5;border-color:#10b981;color:#065f46;}
+.chkbox{width:13px;height:13px;border-radius:3px;border:1.5px solid #9ca3af;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;}
+.chk.on .chkbox{background:#10b981;border-color:#10b981;color:#fff;}
+.nav{background:#fff;border-top:1px solid #ddd;padding:10px 14px;display:flex;gap:8px;}
+.btn-n{flex:1;background:#2563eb;color:#fff;border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s;}
+.btn-n:hover{background:#1d4ed8;}
+.btn-n:disabled{background:#d1d5db;cursor:default;color:#9ca3af;}
+.btn-b{background:#fff;border:1.5px solid #d1d5db;border-radius:10px;padding:11px 13px;font-size:13px;color:#6b7280;cursor:pointer;}
+.btn-b:hover{background:#f3f4f6;}
+.done-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;text-align:center;}
+.done-ico{width:56px;height:56px;border-radius:50%;background:#d1fae5;display:flex;align-items:center;justify-content:center;font-size:26px;}
+.done-title{font-size:16px;font-weight:700;color:#111;}
+.done-sub{font-size:12px;color:#6b7280;line-height:1.5;}
+.pill{display:inline-flex;align-items:center;gap:5px;background:#dbeafe;border-radius:20px;padding:5px 12px;font-size:12px;color:#1e3a8a;font-weight:500;width:100%;justify-content:center;}
+.pill2{background:#d1fae5;color:#065f46;}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="phone">
+  <div style="height:10px;background:#fff;"></div>
+  <div class="nub"></div>
+  <div style="height:6px;background:#fff;"></div>
+  <div class="screen" id="mainscreen">
+
+    <!-- Q1 -->
+    <div id="s1" style="display:flex;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section A — who is completing this?</span><span class="badge ba">A</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:7%"></div></div><div class="prog-lbl"><span>1 of 14</span><span>7%</span></div></div>
+      <div class="body">
+        <div class="qtxt">Who is filling in this form today?</div>
+        <div class="opts" id="o1">
+          <button class="opt" onclick="pick('o1',this,'s1','n1')"><span class="ic">🙋</span>I am filling it in myself</button>
+          <button class="opt" onclick="pick('o1',this,'s1','n1')"><span class="ic">🤝</span>I am filling it in with help from someone</button>
+          <button class="opt" onclick="pick('o1',this,'s1','n1')"><span class="ic">👨‍👩‍👧</span>A parent or carer is filling it in for me</button>
+          <button class="opt" onclick="pick('o1',this,'s1','n1')"><span class="ic">👩‍💼</span>A professional (teacher / keyworker) is filling it in</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-n" id="n1" disabled onclick="show('s1','s2')">Next →</button></div>
+    </div>
+
+    <!-- Q2 -->
+    <div id="s2" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section A — about you</span><span class="badge ba">A</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:14%"></div></div><div class="prog-lbl"><span>2 of 14</span><span>14%</span></div></div>
+      <div class="body">
+        <div class="qtxt">How old is the person this profile is for?</div>
+        <div class="opts" id="o2">
+          <button class="opt" onclick="pick('o2',this,'s2','n2')"><span class="ic">🧒</span>14 – 17 years old</button>
+          <button class="opt" onclick="pick('o2',this,'s2','n2')"><span class="ic">🧑</span>18 – 25 years old</button>
+          <button class="opt" onclick="pick('o2',this,'s2','n2')"><span class="ic">👤</span>26 – 40 years old</button>
+          <button class="opt" onclick="pick('o2',this,'s2','n2')"><span class="ic">👤</span>41 or older</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s2','s1')">← Back</button><button class="btn-n" id="n2" disabled onclick="show('s2','s3')">Next →</button></div>
+    </div>
+
+    <!-- Q3 -->
+    <div id="s3" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section A — diagnosis (optional)</span><span class="badge ba">A</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:21%"></div></div><div class="prog-lbl"><span>3 of 14</span><span>21%</span></div></div>
+      <div class="body">
+        <div class="qtxt">Does the person have a diagnosis? <span style="font-weight:400;font-size:11px;color:#6b7280;">Optional — skip if you prefer</span></div>
+        <div class="grid2" id="o3">
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Autism / ASD</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>ADHD</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Dyslexia</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Intellectual disability</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Dyscalculia</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Processing difference</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Not yet assessed</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Prefer not to say</button>
+        </div>
+        <div class="qsub">Your diagnosis never determines your profile — your answers do.</div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s3','s2')">← Back</button><button class="btn-n" onclick="show('s3','s4')">Next →</button></div>
+    </div>
+
+    <!-- Q4 paired demo -->
+    <div id="s4" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section B — format preference</span><span class="badge bb">B</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:28%"></div></div><div class="prog-lbl"><span>4 of 14</span><span>28%</span></div></div>
+      <div class="body">
+        <div class="qtxt">Which was easier to understand?</div>
+        <div class="qsub">Same task, two different ways. Tap the one that felt clearer.</div>
+        <div class="demo-row">
+          <div class="dcard" id="d4a" onclick="pickDemo('d4a','d4b','d4c','n4')">
+            <div class="dcard-lbl">Option A — text</div>
+            <div class="dcard-txt">Fill the kettle with cold water. Switch it on. Wait until it boils. Pour water into your cup.</div>
+          </div>
+          <div class="dcard" id="d4b" onclick="pickDemo('d4b','d4a','d4c','n4')">
+            <div class="dcard-lbl">Option B — pictures</div>
+            <div class="dcard-txt">
+              <div class="step"><span class="sn">1</span>🚿 Fill kettle</div>
+              <div class="step"><span class="sn">2</span>🔌 Switch on</div>
+              <div class="step"><span class="sn">3</span>⏳ Wait to boil</div>
+              <div class="step"><span class="sn">4</span>☕ Pour water</div>
+            </div>
+          </div>
+        </div>
+        <button class="opt" id="d4c" onclick="pickDemo('d4c','d4a','d4b','n4')"><span class="ic">↔️</span>Both were equally clear</button>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s4','s3')">← Back</button><button class="btn-n" id="n4" disabled onclick="show('s4','s5')">Next →</button></div>
+    </div>
+
+    <!-- Q5 -->
+    <div id="s5" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section B — learning style</span><span class="badge bb">B</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:35%"></div></div><div class="prog-lbl"><span>5 of 14</span><span>35%</span></div></div>
+      <div class="body">
+        <div class="qtxt">When someone explains something new, what helps most?</div>
+        <div class="opts" id="o5">
+          <button class="opt" onclick="pick('o5',this,'s5','n5')"><span class="ic">📖</span>Reading it myself</button>
+          <button class="opt" onclick="pick('o5',this,'s5','n5')"><span class="ic">🎧</span>Hearing someone explain it</button>
+          <button class="opt" onclick="pick('o5',this,'s5','n5')"><span class="ic">👀</span>Watching someone do it</button>
+          <button class="opt" onclick="pick('o5',this,'s5','n5')"><span class="ic">🖼️</span>Seeing pictures or diagrams</button>
+          <button class="opt" onclick="pick('o5',this,'s5','n5')"><span class="ic">🔀</span>A mix of these</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s5','s4')">← Back</button><button class="btn-n" id="n5" disabled onclick="show('s5','s6')">Next →</button></div>
+    </div>
+
+    <!-- Q6 -->
+    <div id="s6" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section B — reading comfort</span><span class="badge bb">B</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:42%"></div></div><div class="prog-lbl"><span>6 of 14</span><span>42%</span></div></div>
+      <div class="body">
+        <div class="hint">🔊 Tap speaker to hear this question read aloud</div>
+        <div class="qtxt">How comfortable are you with reading?</div>
+        <div class="opts" id="o6">
+          <button class="opt" onclick="pick('o6',this,'s6','n6')"><span class="ic">😊</span>Very comfortable</button>
+          <button class="opt" onclick="pick('o6',this,'s6','n6')"><span class="ic">🙂</span>Mostly comfortable</button>
+          <button class="opt" onclick="pick('o6',this,'s6','n6')"><span class="ic">😐</span>Sometimes I struggle</button>
+          <button class="opt" onclick="pick('o6',this,'s6','n6')"><span class="ic">😟</span>I often struggle with reading</button>
+          <button class="opt" onclick="pick('o6',this,'s6','n6')"><span class="ic">📵</span>I prefer not to read</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s6','s5')">← Back</button><button class="btn-n" id="n6" disabled onclick="show('s6','s7')">Next →</button></div>
+    </div>
+
+    <!-- Q7 -->
+    <div id="s7" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section B — audio preference</span><span class="badge bb">B</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:50%"></div></div><div class="prog-lbl"><span>7 of 14</span><span>50%</span></div></div>
+      <div class="body">
+        <div class="qtxt">What about listening to audio or spoken instructions?</div>
+        <div class="opts" id="o7">
+          <button class="opt" onclick="pick('o7',this,'s7','n7')"><span class="ic">🎧</span>I find audio helpful</button>
+          <button class="opt" onclick="pick('o7',this,'s7','n7')"><span class="ic">👁️</span>Audio is fine but I prefer something to look at</button>
+          <button class="opt" onclick="pick('o7',this,'s7','n7')"><span class="ic">😵</span>I find audio hard to follow</button>
+          <button class="opt" onclick="pick('o7',this,'s7','n7')"><span class="ic">🔇</span>Sound is stressful for me</button>
+          <button class="opt" onclick="pick('o7',this,'s7','n7')"><span class="ic">👂</span>I use a hearing aid or have hearing differences</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s7','s6')">← Back</button><button class="btn-n" id="n7" disabled onclick="show('s7','s8')">Next →</button></div>
+    </div>
+
+    <!-- Q8 -->
+    <div id="s8" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section B — task chunking</span><span class="badge bb">B</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:57%"></div></div><div class="prog-lbl"><span>8 of 14</span><span>57%</span></div></div>
+      <div class="body">
+        <div class="qtxt">When completing a task, what works best for you?</div>
+        <div class="opts" id="o8">
+          <button class="opt" onclick="pick('o8',this,'s8','n8')"><span class="ic">📋</span>Tell me everything at once</button>
+          <button class="opt" onclick="pick('o8',this,'s8','n8')"><span class="ic">📂</span>Break it into sections</button>
+          <button class="opt" onclick="pick('o8',this,'s8','n8')"><span class="ic">1️⃣</span>Give me one step at a time</button>
+          <button class="opt" onclick="pick('o8',this,'s8','n8')"><span class="ic">🎛️</span>Let me choose as I go</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s8','s7')">← Back</button><button class="btn-n" id="n8" disabled onclick="show('s8','s9')">Next →</button></div>
+    </div>
+
+    <!-- Q9 -->
+    <div id="s9" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section C — daily life priorities</span><span class="badge bc">C</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:64%"></div></div><div class="prog-lbl"><span>9 of 14</span><span>64%</span></div></div>
+      <div class="body">
+        <div class="qtxt">Which areas of daily life feel hardest?</div>
+        <div class="qsub">Choose up to 3</div>
+        <div class="grid2" id="o9">
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Getting organised</button>
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Letters &amp; documents</button>
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Communicating</button>
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Money &amp; bills</button>
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Getting places</button>
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Cooking &amp; meals</button>
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Work or college</button>
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Health &amp; appointments</button>
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Staying safe</button>
+          <button class="chk" onclick="chkMax(this,'o9',3,'n9')"><span class="chkbox"></span>Other</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s9','s8')">← Back</button><button class="btn-n" id="n9" disabled onclick="show('s9','s10')">Next →</button></div>
+    </div>
+
+    <!-- Q10 -->
+    <div id="s10" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section C — getting started</span><span class="badge bc">C</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:71%"></div></div><div class="prog-lbl"><span>10 of 14</span><span>71%</span></div></div>
+      <div class="body">
+        <div class="qtxt">What usually stops you getting started on something?</div>
+        <div class="opts" id="o10">
+          <button class="opt" onclick="pick('o10',this,'s10','n10')"><span class="ic">🧱</span>Hard to start even when I know what to do</button>
+          <button class="opt" onclick="pick('o10',this,'s10','n10')"><span class="ic">❓</span>Not sure what the first step is</button>
+          <button class="opt" onclick="pick('o10',this,'s10','n10')"><span class="ic">💭</span>I get distracted easily</button>
+          <button class="opt" onclick="pick('o10',this,'s10','n10')"><span class="ic">😰</span>I worry about getting it wrong</button>
+          <button class="opt" onclick="pick('o10',this,'s10','n10')"><span class="ic">✅</span>Nothing usually stops me</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s10','s9')">← Back</button><button class="btn-n" id="n10" disabled onclick="show('s10','s11')">Next →</button></div>
+    </div>
+
+    <!-- Q11 -->
+    <div id="s11" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section C — handling change</span><span class="badge bc">C</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:78%"></div></div><div class="prog-lbl"><span>11 of 14</span><span>78%</span></div></div>
+      <div class="body">
+        <div class="qtxt">When something unexpected happens, what do you usually need?</div>
+        <div class="opts" id="o11">
+          <button class="opt" onclick="pick('o11',this,'s11','n11')"><span class="ic">⏸️</span>Time and space to adjust</button>
+          <button class="opt" onclick="pick('o11',this,'s11','n11')"><span class="ic">💬</span>Someone to talk it through with</button>
+          <button class="opt" onclick="pick('o11',this,'s11','n11')"><span class="ic">🗺️</span>To know exactly what will happen next</button>
+          <button class="opt" onclick="pick('o11',this,'s11','n11')"><span class="ic">⚡</span>Information quickly and clearly</button>
+          <button class="opt" onclick="pick('o11',this,'s11','n11')"><span class="ic">😌</span>I usually manage fine with changes</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s11','s10')">← Back</button><button class="btn-n" id="n11" disabled onclick="show('s11','s12')">Next →</button></div>
+    </div>
+
+    <!-- Q12 -->
+    <div id="s12" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section C — tools you use</span><span class="badge bc">C</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:85%"></div></div><div class="prog-lbl"><span>12 of 14</span><span>85%</span></div></div>
+      <div class="body">
+        <div class="qtxt">Do you currently use any of these to help you?</div>
+        <div class="qsub">Tick all that apply</div>
+        <div class="grid2">
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>AAC device</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Symbol charts</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Visual timetable</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Voice assistant</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Specialist app</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Support worker</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>Paper diary / cards</button>
+          <button class="chk" onclick="toggle(this)"><span class="chkbox"></span>None of these</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s12','s11')">← Back</button><button class="btn-n" onclick="show('s12','s13')">Next →</button></div>
+    </div>
+
+    <!-- Q13 -->
+    <div id="s13" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section D — support person</span><span class="badge bd">D</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:92%"></div></div><div class="prog-lbl"><span>13 of 14</span><span>92%</span></div></div>
+      <div class="body">
+        <div class="qtxt">Would you like to connect a support person to your account?</div>
+        <div class="qsub">They can see your daily plan and help you use the app. You can change this any time in settings.</div>
+        <div class="opts" id="o13">
+          <button class="opt" onclick="pick('o13',this,'s13','n13')"><span class="ic">✅</span>Yes — connect a support person</button>
+          <button class="opt" onclick="pick('o13',this,'s13','n13')"><span class="ic">🚫</span>No — I will use the app on my own</button>
+          <button class="opt" onclick="pick('o13',this,'s13','n13')"><span class="ic">⏳</span>I will decide later in settings</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s13','s12')">← Back</button><button class="btn-n" id="n13" disabled onclick="show('s13','s14')">Next →</button></div>
+    </div>
+
+    <!-- Q14 -->
+    <div id="s14" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">Section D — emergency preferences</span><span class="badge bd">D</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:99%"></div></div><div class="prog-lbl"><span>14 of 14</span><span>Last question!</span></div></div>
+      <div class="body">
+        <div class="qtxt">If something difficult happens and you need help urgently, how should the app respond?</div>
+        <div class="opts" id="o14">
+          <button class="opt" onclick="pick('o14',this,'s14','n14')"><span class="ic">📞</span>Show me my emergency contacts immediately</button>
+          <button class="opt" onclick="pick('o14',this,'s14','n14')"><span class="ic">🔔</span>Send a notification to my support person</button>
+          <button class="opt" onclick="pick('o14',this,'s14','n14')"><span class="ic">🧘</span>Show me calming information first</button>
+          <button class="opt" onclick="pick('o14',this,'s14','n14')"><span class="ic">🙋</span>Let me contact someone myself</button>
+        </div>
+      </div>
+      <div class="nav"><button class="btn-b" onclick="show('s14','s13')">← Back</button><button class="btn-n" id="n14" disabled onclick="finish()">Finish ✓</button></div>
+    </div>
+
+    <!-- DONE -->
+    <div id="sdone" style="display:none;flex-direction:column;flex:1;">
+      <div class="hdr"><span class="hdr-title">All done!</span><span class="badge bdone">✓</span></div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-bar" style="width:100%;background:#10b981;"></div></div><div class="prog-lbl"><span>Assessment complete</span><span>100%</span></div></div>
+      <div class="done-area">
+        <div class="done-ico">✅</div>
+        <div class="done-title">Your profile is ready</div>
+        <div class="done-sub">Enabilio will show everything in your preferred format from day one. You can update your preferences any time in Settings.</div>
+        <div style="display:flex;flex-direction:column;gap:6px;width:100%;">
+          <div class="pill" id="fmt-pill">📷 Visual step-by-step</div>
+          <div class="pill pill2" id="chunk-pill">1️⃣ One step at a time</div>
+        </div>
+        <button class="btn-n" style="width:100%;margin-top:6px;" onclick="this.textContent='Opening your home screen...'">Go to my app →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+var ans = {};
+
+function show(hide, showId) {
+  document.getElementById(hide).style.display = 'none';
+  var el = document.getElementById(showId);
+  el.style.display = 'flex';
+  el.style.flexDirection = 'column';
+  el.style.flex = '1';
+}
+
+function pick(groupId, btn, screenId, nextId) {
+  var group = document.getElementById(groupId);
+  group.querySelectorAll('.opt').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  ans[groupId] = btn.textContent.trim();
+  var nb = document.getElementById(nextId);
+  if (nb) nb.disabled = false;
+}
+
+function pickDemo(clickedId, other1Id, other2Id, nextId) {
+  [clickedId, other1Id, other2Id].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.classList.remove('on');
+  });
+  document.getElementById(clickedId).classList.add('on');
+  ans['demo'] = clickedId;
+  var nb = document.getElementById(nextId);
+  if (nb) nb.disabled = false;
+}
+
+function toggle(btn) {
+  btn.classList.toggle('on');
+  var cb = btn.querySelector('.chkbox');
+  cb.textContent = btn.classList.contains('on') ? '✓' : '';
+}
+
+function chkMax(btn, groupId, max, nextId) {
+  var group = document.getElementById(groupId);
+  var selected = group.querySelectorAll('.chk.on');
+  if (!btn.classList.contains('on') && selected.length >= max) return;
+  toggle(btn);
+  var nowSelected = group.querySelectorAll('.chk.on');
+  var nb = document.getElementById(nextId);
+  if (nb) nb.disabled = nowSelected.length === 0;
+}
+
+function finish() {
+  var fmt = '📷 Visual step-by-step';
+  if (ans['demo'] === 'd4a') fmt = '📝 Written text';
+  else if (ans['demo'] === 'd4c') fmt = '🔀 Multi-modal (combined)';
+  var chunk = '📂 Sections';
+  var q8 = ans['o8'] || '';
+  if (q8.indexOf('one step') > -1) chunk = '1️⃣ One step at a time';
+  else if (q8.indexOf('everything') > -1) chunk = '📋 Full view';
+  else if (q8.indexOf('choose') > -1) chunk = '🎛️ User-controlled';
+  document.getElementById('fmt-pill').textContent = fmt;
+  document.getElementById('chunk-pill').textContent = chunk;
+  show('s14','sdone');
+}
+
+show('sdone','s1');
+show('s1','s1');
+</script>
+</body>
+</html>
